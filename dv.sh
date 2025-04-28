@@ -39,6 +39,7 @@ if [ "$1" == "-g" ] || [ "$1" == "get" ]; then
     echo "What is the commit message?"
     read commit_message
     echo "Pushing dotfiles..." 
+    git commit -m "$commit_message"
     git push origin main
 elif [ "$1" == "-h" ] || [ "$1" == "help" ]; then
   help_screen
@@ -58,10 +59,3 @@ else
   help_screen
   exit 1
 fi
-
-: '
-
-  Idk how to find how to push directly to github without cloning but if I have to clone whatever
-  Need to find out how to get my system dotfiles downloaded fast & or installed fast
-
-'
