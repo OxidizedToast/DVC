@@ -7,7 +7,13 @@ function help_screen()
     -install || -i  - Installs dotfiles into system
     -get     || -g  - Gets dotfiles
     -push    || -p  - Pushes dotfiles
+    -version || -v  - Version of tool
   ]])
+end
+local version = "v1.0.0"
+
+function version()
+ print("Current version: " ..verison)
 end
 
 function installation()
@@ -50,6 +56,8 @@ elseif command == "-push" or command == "-p" then
   push_dots()
 elseif command == "-get" or command == "-g" then
   get_dots()
+elseif command == "-version" or command == "-v" then
+  version()
 elseif command == "" then
   print("No command entered, see '-h' for options")
   os.exit(1)
