@@ -3,4 +3,4 @@ My own dotfile management tool, written in bash
 
 
 ## Dependencies
-git
+lua, git
