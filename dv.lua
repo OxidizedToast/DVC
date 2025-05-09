@@ -10,7 +10,7 @@ function help_screen()
     -version || -v  - Version of tool
   ]])
 end
-local version = "v1.0.0"
+local version = "v1.0.0-beta"
 
 function version()
  print("Current version: " ..verison)
