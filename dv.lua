@@ -1,4 +1,6 @@
 #!/usr/bin/env lua
+local lfs = require("lfs")
+
 function help_screen()
   print([[ 
   Usage: dv [options]
@@ -10,14 +12,29 @@ function help_screen()
     -version || -v  - Version of tool
   ]])
 end
-local version = "v1.0.0-beta"
+local version = "v1.1.0-beta"
 
 function version()
  print("Current version: " ..verison)
 end
 
 function installation()
+  local used_configs = io.open("used_configs.txt", "r")
+  local used_configs_contents = used_configs:read("*a")
+  used_configs:close()
+
   print("Installing...")
+  get_dots()
+  local changed_successfully, err = lfs.chdir("dotfiles")
+  if not changed_successfully then
+    print("Failed to enter dotfiles directory")
+    os.exit(1)
+  end
+  os.execute("mv fonts ~/.local/share/fonts")
+  os.execute("mv helpful ~")
+  os.execute("mv Wallpapers ~")
+  os.execute("mv " .. used_configs_contents .. " ~/.config/")
+  os.execute("mv config/bashrc ~/.bashrc")
 end
 
 function check_directory()
@@ -42,7 +59,7 @@ function push_dots()
 end
 
 function get_dots()
-  local git_link = "https://github.com/oxidizedtoast/dotfiles"
+local git_link = "https://github.com/oxidizedtoast/dotfiles"
   os.execute("git clone --quiet " .. git_link)
   print("Dotfiles gathered")
 end
