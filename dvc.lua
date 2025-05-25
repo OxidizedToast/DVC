@@ -13,7 +13,7 @@ function help_screen()
   ]])
 end
 function version()
-  local project_verison = "v1.2.0-beta"
+  local project_verison = "v1.3.0"
   print("Current version: " .. project_verison)
 end
 
