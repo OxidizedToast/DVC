@@ -18,7 +18,7 @@ function version()
 end
 
 function installation()
-  local home = os.execute("echo $HOME")
+  local home = os.getenv("HOME")
   local used_configs = io.open("used_configs.txt", "r")
   if not used_configs then
     error("used_contifs.txt not found")
