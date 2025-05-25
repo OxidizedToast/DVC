@@ -33,7 +33,7 @@ function installation()
   os.execute("mv fonts " .. home .. "/.local/share/fonts")
   os.execute("mv helpful " .. home)
   os.execute("mv Wallpapers " .. home)
-  os.execute("mv config/" .. used_configs_contents .. home .. " /.config/")
+  os.execute("mv config/" .. used_configs_contents .. home .. "/.config/")
   os.execute("mv config/bashrc " .. home .."/.bashrc")
 end
 
