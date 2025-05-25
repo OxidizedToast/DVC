@@ -12,21 +12,23 @@ function help_screen()
     -version || -v  - Version of tool
   ]])
 end
-local version = "v1.1.0-beta"
-
 function version()
- print("Current version: " ..verison)
+  local project_verison = "v1.2.0-beta"
+  print("Current version: " .. project_verison)
 end
 
 function installation()
   local used_configs = io.open("used_configs.txt", "r")
+  if not used_configs then
+    error("used_contifs.txt not found")
+  end
   local used_configs_contents = used_configs:read("*a")
   used_configs:close()
 
   print("Installing...")
   get_dots()
-  local changed_successfully, err = lfs.chdir("dotfiles")
-  if not changed_successfully then
+  lfs.chdir("dotfiles")
+  if lfs.currentdir() ~= "dotfiles" then
     print("Failed to enter dotfiles directory")
     os.exit(1)
   end
@@ -38,9 +40,7 @@ function installation()
 end
 
 function check_directory()
-  local handle = io.popen("basename " .. os.getenv("PWD"))
-  local current_dir = handle:read("*l")
-  handle:close()
+  local current_dir = lfs.currentdir()
 
   if current_dir == "dotfiles" then
   else
