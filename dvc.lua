@@ -18,7 +18,7 @@ function version()
 end
 
 function installation()
-  local home = os.getenv("HOME")
+  local home = os.execute("echo $HOME")
   local used_configs = io.open("used_configs.txt", "r")
   if not used_configs then
     error("used_contifs.txt not found")
@@ -29,11 +29,15 @@ function installation()
   print("Installing...")
   get_dots()
   lfs.chdir(current_directory .. "/dotfiles")
-  check_in_dots()
   os.execute("mv fonts " .. home .. "/.local/share/")
   os.execute("mv helpful " .. home)
   os.execute("mv Wallpapers " .. home)
-  os.execute("mv config/" .. used_configs_contents .. " " .. home .. "/.config/")
+  -- moves the files by whitespaces so it copys more than 1 config
+  for config_name in used_configs_contents:gmatch("%S+") do
+    local from_git_dots = "config/" .. config_name
+    local config_dir = home .. "/.config/"
+    os.execute("mv " .. from_git_dots .. " " .. config_dir)
+  end 
   os.execute("mv config/bashrc " .. home .."/.bashrc")
   print("Installation complete!")
 end
