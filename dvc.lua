@@ -32,6 +32,9 @@ function installation()
   os.execute("mv fonts " .. home .. "/.local/share/")
   os.execute("mv helpful " .. home)
   os.execute("mv Wallpapers " .. home)
+
+  -- removes the default hypr config
+  os.execute(home .. "/.config/hypr")
   -- moves the files by whitespaces so it copys more than 1 config
   for config_name in used_configs_contents:gmatch("%S+") do
     local from_git_dots = "config/" .. config_name
