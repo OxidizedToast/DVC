@@ -15,7 +15,9 @@ or copy the file to ~/.local/bin
 `sudo cp dvc.lua /usr/local/bin/dvc`
 
 ## Dependencies
-lua, git, luarocks
+`lua, git, luarocks`
 
 ## LuaRocks packages
-luafilesystem
+`luafilesystem`
+When installing luafilesystem(lfs) and using the script in `/usr/local/bin`
+you'll want to install lfs as root so its global
