@@ -18,39 +18,34 @@ function version()
 end
 
 function installation()
+  local home = os.getenv("HOME")
   local used_configs = io.open("used_configs.txt", "r")
   if not used_configs then
     error("used_contifs.txt not found")
   end
   local used_configs_contents = used_configs:read("*a")
   used_configs:close()
-
+ local current_directory = lfs.currentdir()
   print("Installing...")
   get_dots()
-  lfs.chdir("dotfiles")
-  if lfs.currentdir() ~= "dotfiles" then
-    print("Failed to enter dotfiles directory")
-    os.exit(1)
-  end
-  os.execute("mv fonts ~/.local/share/fonts")
-  os.execute("mv helpful ~")
-  os.execute("mv Wallpapers ~")
-  os.execute("mv " .. used_configs_contents .. " ~/.config/")
-  os.execute("mv config/bashrc ~/.bashrc")
+  lfs.chdir(current_directory .. "/dotfiles")
+  check_in_dots()
+  os.execute("mv fonts " .. home .. "/.local/share/fonts")
+  os.execute("mv helpful " .. home)
+  os.execute("mv Wallpapers " .. home)
+  os.execute("mv " .. used_configs_contents .. home .. " /.config/")
+  os.execute("mv config/bashrc " .. home .."/.bashrc")
 end
 
-function check_directory()
-  local current_dir = lfs.currentdir()
-
-  if current_dir == "dotfiles" then
-  else
-    print("Not in dotfiles directory \n exiting...")
+function check_in_dots()
+  if not lfs.currentdir():match("dotfiles$") then
+    print("Failed to enter dotfiles directory")
     os.exit(1)
   end
 end
 
 function push_dots()
-  check_directory()
+  check_in_dots()
   print("What is the commit message?")
   local message = io.read()
   os.execute("git add .")
