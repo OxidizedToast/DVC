@@ -14,7 +14,7 @@ function help_screen()
   ]])
 end
 function version()
-  local project_verison = "v1.3.0"
+  local project_verison = "v1.3.2"
   print([[ 
 
   $$$$$$$\             $$\          $$\    $$\                    $$\   $$\            $$$$$$\  $$\       $$$$$$\ 
@@ -31,6 +31,16 @@ function version()
 end
 
 function installation()
+  print("Confirm you want to install dotfiles? [Y/n]")
+  local confirm_install = io.read()
+  if confirm_install == "N" or confirm_install == "n" then
+    os.exit(1)
+  elseif confirm_install == "Y" or confirm_install == "y" then
+    print("Preceding...")
+  else
+    print(confirm_install .. " was not an option")
+  end
+
   local home = os.getenv("HOME")
   local used_configs = io.open("used_configs.txt", "r")
   if not used_configs then
